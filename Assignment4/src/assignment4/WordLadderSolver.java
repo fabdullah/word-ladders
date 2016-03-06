@@ -22,9 +22,28 @@ public class WordLadderSolver implements Assignment4Interface
     public List<String> computeLadder(String startWord, String endWord) throws NoSuchLadderException 
     {
         // implement this method
-    	MakeLadder("stone", "money", -1);
-    	System.out.println(solution);
-    	System.out.println();
+    	if(startWord.length() == 5 && checkWordInDictionary(startWord)){
+    		if(endWord.length() == 5 && checkWordInDictionary(endWord)){
+    			if(MakeLadder(startWord, endWord, -1)){
+    				if(validateResult(startWord, endWord, solution)){
+    					System.out.println(solution);
+    					return solution;
+    				}
+    			}
+    		
+    		}
+    		else{
+    			//exception
+    		}
+    		
+    	}
+    	else{
+    		//exception
+    	}
+    	
+    	//MakeLadder("stone", "money", -1);
+    	//System.out.println(solution);
+    	//System.out.println();
     	
         throw new UnsupportedOperationException("Not implemented yet!");
     }
@@ -32,16 +51,72 @@ public class WordLadderSolver implements Assignment4Interface
     @Override
     public boolean validateResult(String startWord, String endWord, List<String> wordLadder) 
     {
+    	
+    	//Checking if all the words in wordLadder is exist in the dictionary
+    	for(int i=0; i<wordLadder.size(); i++){
+    		boolean check = checkWordInDictionary(wordLadder.get(i));
+    		if(check == false){
+    			return false;
+    		}
+    	}
+    	
+    	//Checking if words in the wordLadder is one character away from each other
+    	for(int i=1; i<wordLadder.size(); i++){
+    		int counter = 0;
+    		for(int j=0; j<5;j++){
+    
+    			if(wordLadder.get(i-1).charAt(j) == wordLadder.get(i).charAt(j)){
+    				counter++;
+    			}
+    		}
+    		
+    		if(counter != 4){
+				return false;
+			}
+    		
+    	}
+    	
         throw new UnsupportedOperationException("Not implemented yet!");
     }
 
+ 
+/*
+ * 
+ *     
+ *     
+ *     
+ *     
+ *     
+ *     
+ *     
+ *     
+ *     
+ *     
+ *     
+ *     
+ */
     
-    public void MakeLadder(String start, String end, int position){
+    public boolean MakeLadder(String start, String end, int position){
     	
+    	
+    	/*
+    	 *Basis case for recursion
+    	 * 
+    	 */
+    	
+    	
+    	
+    	
+    	
+    	/*
     	if(checkWordInDictionary(start) && !solution.contains(start)){
     		solution.push(start);
     	}
-    
+    	else{
+    		solution.pop();
+    		return;
+    	}
+    	 */
     	
     	ArrayList<String> temp_list = new ArrayList<String>();
 //This for-loop add one letter difference word to temp_list
@@ -72,6 +147,9 @@ public class WordLadderSolver implements Assignment4Interface
 				}
 			}
 		}
+		
+		
+		/*
 		boolean flag = checkWordInDictionary(end);
 		boolean flag2 = checkFinalWord(end,temp_list);
 	
@@ -79,7 +157,7 @@ public class WordLadderSolver implements Assignment4Interface
 			solution.push(end);
 			return;
 		}
-
+		*/
 	
 		
 		ArrayList<Integer> temp_list_integer = findEnd(end, temp_list);
@@ -101,45 +179,37 @@ public class WordLadderSolver implements Assignment4Interface
 			}
 			max--;
 		}
-
+	
+		//prepend
+		ArrayList<String> prepend  = new ArrayList<String>();
+		for(int i=0; i<temp_list_sort.size();i++){
+			
+			
+		}
+		
 		
 /*
  * Recursive
  */
+	
+//		max = Collections.max(temp_list_integer);
+//		String word = temp_list_sort.get(0);
+//		int index_position = findDifferentIndex(start, word);
+		
+//		MakeLadder(word, end, index_position);
+
 		max = Collections.max(temp_list_integer);
+		
 		for(int i=0;i<temp_list_sort.size();i++){
 			String word = temp_list_sort.get(i);
-			max = Collections.max(temp_list_integer);
-			
 			int index_position = findDifferentIndex(start, word);
-			if(!solution.contains(word) && temp_list_integer_sort.get(i)>=max){
-				MakeLadder(word, end, index_position);
-			}
-			else{
-				solution.pop();
-			}
+			
+			MakeLadder(word, end, index_position);
 			
 		}
 		
-		System.out.println();
-/*		
-		for(int a=0;a<temp_list_integer.size();a++){
-			if(temp_list_integer.get(a) == max){
-				temp_list_max.add(temp_list.get(a));
-			}
-		}
-*/		
-		
-/*		
-		ArrayList<String> visited = new ArrayList<String>();
-		for(int i=0;i<temp_list_max.size();i++){
-			int index_position = findDifferentIndex(start, temp_list_max.get(i));
-			MakeLadder(temp_list_max.get(i), end, index_position);
-			
-		}
-*/		
-
-		
+	
+	return null;
     
     }//end of the MakeLadder
     
