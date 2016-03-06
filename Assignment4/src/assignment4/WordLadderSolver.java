@@ -6,7 +6,6 @@ package assignment4;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Stack;
 
@@ -26,7 +25,10 @@ public class WordLadderSolver implements Assignment4Interface
 			if (endWord.length() == 5 && checkWordInDictionary(endWord)) {
 				if (MakeLadder(startWord, endWord, -1)) {
 
-					System.out.println(solution);
+					//System.out.println(solution);
+					for(int i=0; i<solution.size(); i++){
+						System.out.println(solution.get(i));
+					}
 					return solution;
 
 				}
@@ -36,13 +38,13 @@ public class WordLadderSolver implements Assignment4Interface
 
 			} 
 			else {
-				System.out.println("Input Invalid: wrong start word!!");// input exception: endWord is not valid (length is not 5 and word is not in dictionary)
+				System.out.println("At least one of the words " + startWord + " and " + endWord + " are not legitimate 5-letter words from the dictionary");// input exception: endWord is not valid (length is not 5 and word is not in dictionary)
 				System.out.println();
 			}
 
 		} 
 		else {
-			System.out.println("Input Invalid: wrong end word!!");// input exception: startWord is not valid (length is not 5 and word is not in dictionary)
+			System.out.println("At least one of the words " + startWord + " and " + endWord + " are not legitimate 5-letter words from the dictionary");// input exception: startWord is not valid (length is not 5 and word is not in dictionary)
 			System.out.println();
 		}
     	
@@ -86,19 +88,9 @@ public class WordLadderSolver implements Assignment4Interface
 /*
  * 
  *     
+ * 
  *     
- *     
- *     
- *     
- *     
- *     
- *     
- *     
- *     
- *     
- *     
- */
-    
+ */   
 	public boolean MakeLadder(String start, String end, int position) {
 		
 		solution.push(start);
@@ -130,6 +122,7 @@ public class WordLadderSolver implements Assignment4Interface
 			for (int i = 0; i < temp_list.size(); i++) {
 				int new_position = findDifferentIndex(start, temp_list.get(i).substring(1));
 				String new_word = temp_list.get(i).substring(1);
+				//Recursive step!
 				if (MakeLadder(new_word, end, new_position)) {
 					return true;
 				}

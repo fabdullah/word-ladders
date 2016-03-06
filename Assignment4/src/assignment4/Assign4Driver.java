@@ -26,10 +26,10 @@ public class Assign4Driver
 
         try 
         {
-            List<String> result = wordLadderSolver.computeLadder("stone", "money");
-            boolean correct = wordLadderSolver.validateResult("stone", "money", result);
+            List<String> result = wordLadderSolver.computeLadder("heads", "tails");
+            boolean correct = wordLadderSolver.validateResult("heads", "tails", result);
             if(correct){
-            	System.out.println("Valid!!");
+            	System.out.println("\nValidate Result: Valid!!");
             }
         } 
         catch (NoSuchLadderException e) 
@@ -46,7 +46,6 @@ public class Assign4Driver
 			BufferedReader reader = new BufferedReader(freader);
 
 			for (String s = reader.readLine(); s != null; s = reader.readLine()) {
-				
 				createDictionary(s);
 			}
 		} catch (FileNotFoundException e) {
