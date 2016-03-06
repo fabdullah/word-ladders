@@ -26,8 +26,11 @@ public class Assign4Driver
 
         try 
         {
-            List<String> result = wordLadderSolver.computeLadder("money", "honey");
-            boolean correct = wordLadderSolver.validateResult("money", "honey", result);
+            List<String> result = wordLadderSolver.computeLadder("stone", "money");
+            boolean correct = wordLadderSolver.validateResult("stone", "money", result);
+            if(correct){
+            	System.out.println("Valid!!");
+            }
         } 
         catch (NoSuchLadderException e) 
         {

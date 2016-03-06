@@ -22,28 +22,30 @@ public class WordLadderSolver implements Assignment4Interface
     public List<String> computeLadder(String startWord, String endWord) throws NoSuchLadderException 
     {
         // implement this method
-    	if(startWord.length() == 5 && checkWordInDictionary(startWord)){
-    		if(endWord.length() == 5 && checkWordInDictionary(endWord)){
-    			if(MakeLadder(startWord, endWord, -1)){
-    				if(validateResult(startWord, endWord, solution)){
-    					System.out.println(solution);
-    					return solution;
-    				}
-    			}
-    		
-    		}
-    		else{
-    			//exception
-    		}
-    		
-    	}
-    	else{
-    		//exception
-    	}
+		if (startWord.length() == 5 && checkWordInDictionary(startWord)) {
+			if (endWord.length() == 5 && checkWordInDictionary(endWord)) {
+				if (MakeLadder(startWord, endWord, -1)) {
+
+					System.out.println(solution);
+					return solution;
+
+				}
+				else{
+					System.out.println("There is no word ladder between " + startWord +" and " + endWord);
+				}
+
+			} 
+			else {
+				System.out.println("Input Invalid: wrong start word!!");// input exception: endWord is not valid (length is not 5 and word is not in dictionary)
+				System.out.println();
+			}
+
+		} 
+		else {
+			System.out.println("Input Invalid: wrong end word!!");// input exception: startWord is not valid (length is not 5 and word is not in dictionary)
+			System.out.println();
+		}
     	
-    	//MakeLadder("stone", "money", -1);
-    	//System.out.println(solution);
-    	//System.out.println();
     	
         throw new UnsupportedOperationException("Not implemented yet!");
     }
@@ -75,8 +77,9 @@ public class WordLadderSolver implements Assignment4Interface
 			}
     		
     	}
+    	return true;
     	
-        throw new UnsupportedOperationException("Not implemented yet!");
+        //throw new UnsupportedOperationException("Not implemented yet!");
     }
 
  
@@ -96,122 +99,48 @@ public class WordLadderSolver implements Assignment4Interface
  *     
  */
     
-    public boolean MakeLadder(String start, String end, int position){
-    	
-    	
-    	/*
-    	 *Basis case for recursion
-    	 * 
-    	 */
-    	
-    	
-    	
-    	
-    	
-    	/*
-    	if(checkWordInDictionary(start) && !solution.contains(start)){
-    		solution.push(start);
-    	}
-    	else{
-    		solution.pop();
-    		return;
-    	}
-    	 */
-    	
-    	ArrayList<String> temp_list = new ArrayList<String>();
-//This for-loop add one letter difference word to temp_list
-    	for(int i=0; i<dic.size(); i++){
-    		int counter = 0;
-    		for(int j=0; j<start.length();j++){
-    	
-    			if(start.charAt(j) == dic.get(i).charAt(j)){
-    				counter++;
-    			}
-    			
-    		}
-    		
-    		if(counter == 4 && !start.equals(dic.get(i))){
-				temp_list.add(dic.get(i));
-			}
-    	}
-//This for-loop consider position into account. delete all the word that is one letter different from position given.
-		if (position != -1) {
-			for (int i = 0; i < temp_list.size(); i++) {
-				String str = temp_list.get(i);
-				str = str.substring(0, position) + str.substring(position + 1);
-				String startstr = start.substring(0, position) + start.substring(position + 1);
-
-				if (str.equals(startstr)) {
-					temp_list.remove(i);
-					i--;
-				}
-			}
-		}
+	public boolean MakeLadder(String start, String end, int position) {
 		
+		solution.push(start);
 		
 		/*
-		boolean flag = checkWordInDictionary(end);
-		boolean flag2 = checkFinalWord(end,temp_list);
-	
-		if(flag&&flag2){
-			solution.push(end);
-			return;
+		 * Base case: check start is one letter different in the beginning
+		 */
+		int counter = 0;
+		for(int i=0; i<start.length(); i++){
+			if(start.charAt(i) == end.charAt(i)){
+				counter++;
+			}
 		}
-		*/
-	
+		if(counter ==4){
+			solution.push(end);
+			return true;
+		}
 		
-		ArrayList<Integer> temp_list_integer = findEnd(end, temp_list);
-		ArrayList<Integer> temp_list_integer_sort = new ArrayList<Integer>();
-		
-		temp_list_integer_sort.addAll(temp_list_integer);
-		Collections.sort(temp_list_integer_sort);
-		Collections.reverse(temp_list_integer_sort);
-		
-		
-		int max = Collections.max(temp_list_integer);
-		
-		ArrayList<String> temp_list_sort = new ArrayList<String>();
-		while(max>=0){
-			for(int i=0; i<temp_list.size();i++){
-				if(temp_list_integer.get(i) == max){
-					temp_list_sort.add(temp_list.get(i));
+		//Termination Case: when you find word that is one character difference from the end, you found solution!!
+		ArrayList<String> temp_list = diffbyone(start, end, position);
+		if (!temp_list.isEmpty()) {
+
+			if (temp_list.get(0).charAt(0) == '4') {
+				solution.push(temp_list.get(0).substring(1));
+				solution.push(end);
+				return true;
+			}
+
+			for (int i = 0; i < temp_list.size(); i++) {
+				int new_position = findDifferentIndex(start, temp_list.get(i).substring(1));
+				String new_word = temp_list.get(i).substring(1);
+				if (MakeLadder(new_word, end, new_position)) {
+					return true;
 				}
 			}
-			max--;
 		}
-	
-		//prepend
-		ArrayList<String> prepend  = new ArrayList<String>();
-		for(int i=0; i<temp_list_sort.size();i++){
-			
-			
-		}
+		//Cannot find WordLadder, so pop the start in the solution list
+		solution.pop();
 		
-		
-/*
- * Recursive
- */
-	
-//		max = Collections.max(temp_list_integer);
-//		String word = temp_list_sort.get(0);
-//		int index_position = findDifferentIndex(start, word);
-		
-//		MakeLadder(word, end, index_position);
+		return false;
 
-		max = Collections.max(temp_list_integer);
-		
-		for(int i=0;i<temp_list_sort.size();i++){
-			String word = temp_list_sort.get(i);
-			int index_position = findDifferentIndex(start, word);
-			
-			MakeLadder(word, end, index_position);
-			
-		}
-		
-	
-	return null;
-    
-    }//end of the MakeLadder
+	}// end of the MakeLadder
     
     /*
      * check if list contain the end(or final) word in the ladder
@@ -280,6 +209,50 @@ public class WordLadderSolver implements Assignment4Interface
     	}
     	
     	return index;
+    }
+    
+    public ArrayList<String> diffbyone(String start, String end, int position){
+    	ArrayList<String> temp_list = new ArrayList<String>();
+    	//This for-loop add one letter difference word to temp_list
+    	for(int i=0; i<dic.size(); i++){
+    		int counter = 0;
+    		for(int j=0; j<start.length();j++){
+    	
+    			if(start.charAt(j) == dic.get(i).charAt(j)){
+    				counter++;
+    			}
+    			
+    		}
+    		
+    		if(counter == 4 && !start.equals(dic.get(i))){
+    			if(!solution.contains(dic.get(i)))
+				temp_list.add(dic.get(i));
+			}
+    	}
+    	//This for-loop consider position into account. delete all the word that is one letter different from position given.
+		if (position != -1) {
+			for (int i = 0; i < temp_list.size(); i++) {
+				String str = temp_list.get(i);
+				str = str.substring(0, position) + str.substring(position + 1);
+				String startstr = start.substring(0, position) + start.substring(position + 1);
+
+				if (str.equals(startstr)) {
+					temp_list.remove(i);
+					i--;
+				}
+			}
+		}
+
+		ArrayList<Integer> temp_list_integer = findEnd(end, temp_list); //find integer list on how similar to end word
+    	
+		//prepend
+		for(int i=0; i<temp_list.size(); i++){
+			String num = temp_list_integer.get(i).toString();
+			temp_list.set(i, num+temp_list.get(i));	
+		}
+		Collections.sort(temp_list);
+		Collections.reverse(temp_list);
+    	return temp_list;
     }
 
   
