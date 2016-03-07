@@ -1,5 +1,12 @@
-/*
-    ADD YOUR HEADER HERE
+/**
+ * Word ladder solver
+ * Solves EE422C programming assignment #4
+ * @author Seung Ju Han, Fatima Abdullah
+ * @version 1 2016-3-6
+ * 
+ * UTEID: fa449
+ * Lab Section: 11-12:30pm, Lisa Hua
+ * 
  */
 
 package assignment4;
@@ -18,50 +25,43 @@ public class WordLadderSolver implements Assignment4Interface
 	List<String> visited = new ArrayList<String>();
 
     @Override
-    public List<String> computeLadder(String startWord, String endWord) //throws NoSuchLadderException 
+    public List<String> computeLadder(String startWord, String endWord) throws NoSuchLadderException 
     {
-        // implement this method
+        // Check if word is 5 letters and in dictionary
 		if (startWord.length() == 5 && checkWordInDictionary(startWord)) {
 			if (endWord.length() == 5 && checkWordInDictionary(endWord)) {
 				if (MakeLadder(startWord, endWord, -1)) {
 
-					System.out.println("For the input words \"" + startWord + "\" and \"" + endWord + "\" the following word ladder was found");
+					//System.out.println(solution);
 					for(int i=0; i<solution.size(); i++){
 						System.out.println(solution.get(i));
 					}
-					System.out.println("**********");
 					return solution;
 
 				}
 				else{
-					System.out.println("For the input words \"" + startWord + "\" and \"" + endWord + "\"");
 					System.out.println("There is no word ladder between " + startWord +" and " + endWord);
 				}
 
 			} 
 			else {
-				System.out.println("For the input words \"" + startWord + "\" and \"" + endWord + "\"");
 				System.out.println("At least one of the words " + startWord + " and " + endWord + " are not legitimate 5-letter words from the dictionary");// input exception: endWord is not valid (length is not 5 and word is not in dictionary)
 				System.out.println();
 			}
 
 		} 
 		else {
-			System.out.println("For the input words \"" + startWord + "\" and \"" + endWord + "\"");
 			System.out.println("At least one of the words " + startWord + " and " + endWord + " are not legitimate 5-letter words from the dictionary");// input exception: startWord is not valid (length is not 5 and word is not in dictionary)
 			System.out.println();
 		}
     	
-    	return null;
-        //throw new UnsupportedOperationException("Not implemented yet!");
+    	
+        throw new UnsupportedOperationException("Not implemented yet!");
     }
 
     @Override
     public boolean validateResult(String startWord, String endWord, List<String> wordLadder) 
     {
-    	if(wordLadder == null){
-    		return true;
-    	}
     	
     	//Checking if all the words in wordLadder is exist in the dictionary
     	for(int i=0; i<wordLadder.size(); i++){
@@ -90,14 +90,7 @@ public class WordLadderSolver implements Assignment4Interface
     	
         //throw new UnsupportedOperationException("Not implemented yet!");
     }
-
- 
-/*
- * 
- *     
- * 
- *     
- */   
+  
 	public boolean MakeLadder(String start, String end, int position) {
 		
 		solution.push(start);
