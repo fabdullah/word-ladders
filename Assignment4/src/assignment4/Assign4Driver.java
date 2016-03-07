@@ -12,7 +12,7 @@ public class Assign4Driver
 	public static List<String> dictionary = new ArrayList<String>();
     public static void main(String[] args)
     {	
-    	
+    	processLinesInDicFile("A4words.dat.txt"); //process dictionary file and create dictionary global list
     	
     	if (args.length != 1) {
 			System.err.println("Error: Incorrect number of command line arguments");
@@ -20,25 +20,9 @@ public class Assign4Driver
 		}
 		processLinesInFile(args[0]);
     	
-    	
-        // Create a word ladder solver object
-        Assignment4Interface wordLadderSolver = new WordLadderSolver();
-
-        try 
-        {
-            List<String> result = wordLadderSolver.computeLadder("ryan", "joe");
-            boolean correct = wordLadderSolver.validateResult("ryan", "joe", result);
-            if(correct){
-            	System.out.println("\nValidate Result: Valid!!");
-            }
-        } 
-        catch (NoSuchLadderException e) 
-        {
-            e.printStackTrace();
-        }
     }
     
-    public static void processLinesInFile(String filename) {
+    public static void processLinesInDicFile(String filename) {
 
 		//Translator translator = new Translator();
 		try {
@@ -59,6 +43,44 @@ public class Assign4Driver
 		}
 	}
     
+    public static void processLinesInFile(String filename) {
+
+		//Translator translator = new Translator();
+		try {
+			FileReader freader = new FileReader(filename);
+			BufferedReader reader = new BufferedReader(freader);
+
+			for (String s = reader.readLine(); s != null; s = reader.readLine()) {
+				String [] start_end = parseInput(s);
+				
+				  // Create a word ladder solver object
+		        Assignment4Interface wordLadderSolver = new WordLadderSolver();
+
+		        try 
+		        {
+		            List<String> result = wordLadderSolver.computeLadder(start_end[0], start_end[1]);
+		            boolean correct = wordLadderSolver.validateResult(start_end[0], start_end[1], result);
+		            if(correct){
+		            	System.out.println("\nValidate Result: Valid!!");
+		            	System.out.println("----------------------------------------------------------");
+		            }
+		        } 
+		        catch (NoSuchLadderException e) 
+		        {
+		            e.printStackTrace();
+		        }
+		        
+			}//End of the for loop
+		} catch (FileNotFoundException e) {
+			System.err.println("Error: File not found. Exiting...");
+			e.printStackTrace();
+			System.exit(-1);
+		} catch (IOException e) {
+			System.err.println("Error: IO exception. Exiting...");
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
     public static void createDictionary(String eachline){
     	
     	if(eachline.charAt(0) != '*'){
@@ -69,6 +91,11 @@ public class Assign4Driver
     	}
     	
     	
+    }
+    
+    public static String[] parseInput(String s){
+    	String[] result = s.split("\\s+");
+    	return result;
     }
     
     
