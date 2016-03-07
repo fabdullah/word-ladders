@@ -1,5 +1,7 @@
 /*
-    ADD YOUR HEADER HERE
+ * Make and Validate Laddar
+ * Solves EE422C programming assignment #4
+ * @author Seung Ju Han
  */
 
 package assignment4;
@@ -17,8 +19,15 @@ public class WordLadderSolver implements Assignment4Interface
 	Stack<String> solution = new Stack<String>();
 	List<String> visited = new ArrayList<String>();
 
+	/******************************************************************************
+	* Method Name: computeLadder							   			          *
+	* Purpose: this method calls MakeLadder to build WordLadder. 
+	* 			Also it does exceptional handling. 	  							  *
+	* 																			  *
+	* Returns: List<String>	                                                      *
+	******************************************************************************/
     @Override
-    public List<String> computeLadder(String startWord, String endWord) //throws NoSuchLadderException 
+    public List<String> computeLadder(String startWord, String endWord)  
     {
         // implement this method
 		if (startWord.length() == 5 && checkWordInDictionary(startWord)) {
@@ -53,10 +62,16 @@ public class WordLadderSolver implements Assignment4Interface
 		}
     	
     	return null;
-        //throw new UnsupportedOperationException("Not implemented yet!");
+        
     }
 
     @Override
+	/******************************************************************************
+	* Method Name: validateResult							   			 			  *
+	* Purpose: This method goes through solution list and figure out if list is valid *
+	* 																			      *
+	* Returns: boolean: if valid return true	                                      *
+	******************************************************************************/
     public boolean validateResult(String startWord, String endWord, List<String> wordLadder) 
     {
     	if(wordLadder == null){
@@ -88,16 +103,16 @@ public class WordLadderSolver implements Assignment4Interface
     	}
     	return true;
     	
-        //throw new UnsupportedOperationException("Not implemented yet!");
+        
     }
 
  
-/*
- * 
- *     
- * 
- *     
- */   
+	/******************************************************************************
+	* Method Name: MakeLadder													*
+	* Purpose: MakeLadder is recursive method that generate solution list	  	  *
+	* 																			  *
+	* Returns: boolean		                                                         *
+	******************************************************************************/
 	public boolean MakeLadder(String start, String end, int position) {
 		
 		solution.push(start);
@@ -142,10 +157,13 @@ public class WordLadderSolver implements Assignment4Interface
 
 	}// end of the MakeLadder
     
-    /*
-     * check if list contain the end(or final) word in the ladder
-     * if existed in the list return true
-     */
+	
+	/******************************************************************************
+	* Method Name: checkFinalWord       							   			  *
+	* Purpose: check if list contain the end(or final) word in the ladder	  	  *
+	* 																			  *
+	* Returns: boolean: if exist in the list return true	                                                         *
+	******************************************************************************/
     public boolean checkFinalWord(String end, ArrayList<String> list){
     	boolean flag = false;
     	
@@ -158,10 +176,12 @@ public class WordLadderSolver implements Assignment4Interface
     	return flag;
     }
   
-/*
- * This method will check if word is existed in the dictionary
- * if exist in the dictionary, return true    
- */
+	/******************************************************************************
+	* Method Name: checkWordInDictionary							   			  *
+	* Purpose: This method will check if word is existed in the dictionary	  	  *
+	* 																			  *
+	* Returns: boolean: if exist in the dictionary, return true		                                                         *
+	******************************************************************************/
     public boolean checkWordInDictionary(String word){
     	
     	boolean flag = false;
@@ -173,11 +193,13 @@ public class WordLadderSolver implements Assignment4Interface
     	}
 		return flag;
     }
-    
-/*
- * This method will count same characters when compare with end word
- * return ArrayList of numbers of same character   
- */
+  
+	/******************************************************************************
+	* Method Name: findEnd							   			  				  *
+	* Purpose: This method will count same characters when compare with end word  *
+	* 																			  *
+	* Returns: ArrayList of numbers of same character	                                                         *
+	******************************************************************************/
     public ArrayList<Integer> findEnd(String end, ArrayList<String> list){
     	ArrayList<Integer> countlist = new ArrayList<Integer>();
     	
@@ -196,9 +218,12 @@ public class WordLadderSolver implements Assignment4Interface
     	return countlist;
     }
 
-/*
- * This method find index of difference compared to start word.
- */
+	/******************************************************************************
+	* Method Name: findDifferentIndex								   			  *
+	* Purpose: This method find index of difference compared to start word	  	  *
+	* 																			  *
+	* Returns: int index: index that later become position                        *
+	******************************************************************************/
     public int findDifferentIndex(String start, String word){
     	int index = -1;
     	
@@ -211,6 +236,13 @@ public class WordLadderSolver implements Assignment4Interface
     	return index;
     }
     
+	/******************************************************************************
+	* Method Name: diffbyone							   			  			    *
+	* Purpose: This method find all the one word different words in the list, and   *
+	* 			prepend words by putting closeness to end word in front of the word *
+	* 																			    *
+	* Returns: ArrayList<String>	                				                *
+	******************************************************************************/
     public ArrayList<String> diffbyone(String start, String end, int position){
     	ArrayList<String> temp_list = new ArrayList<String>();
     	//This for-loop add one letter difference word to temp_list

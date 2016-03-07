@@ -11,7 +11,7 @@ public class jJunitTest {
 	
 	@Test
 	public void testMain1() throws NoSuchLadderException {
-		Assign4Driver.processLinesInFile("A4words.dat.txt");
+		Assign4Driver.processLinesInDicFile("A4words.dat.txt");
 		List<String> result= wordLadderSolver.computeLadder("ryan", "joe");
 		assertEquals(true, wordLadderSolver.validateResult("ryan", "joe", result));
 		System.out.println();

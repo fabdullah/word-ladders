@@ -21,7 +21,12 @@ public class Assign4Driver
 		processLinesInFile(args[0]);
     	
     }
-    
+	/******************************************************************************
+	* Method Name: processLinesInDicFile							   			  *
+	* Purpose: This method is designed to look through Dictionary Text file and	  *
+	* 		   Create dictionary list											  *
+	* Returns: void	                                                         *
+	******************************************************************************/
     public static void processLinesInDicFile(String filename) {
 
 		//Translator translator = new Translator();
@@ -43,6 +48,13 @@ public class Assign4Driver
 		}
 	}
     
+	/******************************************************************************
+	* Method Name: processLinesInFile							   			  *
+	* Purpose: This method is designed to look through Input Text file and	  *
+	* 		   parse input list, and calls computeLadder and validateLadder   *
+	* 		   in the WordLadderSolver Class								  *
+	* Returns: void	                                                          *
+	******************************************************************************/
     public static void processLinesInFile(String filename) {
 
 		//Translator translator = new Translator();
@@ -81,6 +93,12 @@ public class Assign4Driver
 			System.exit(-1);
 		}
 	}
+	/******************************************************************************
+	* Method Name: createDictionary						   			  *
+	* Purpose: This method parse dictionary text file				  *
+	* 		   														  *
+	* Returns: void	                                                  *
+	******************************************************************************/
     public static void createDictionary(String eachline){
     	
     	if(eachline.charAt(0) != '*'){
@@ -92,7 +110,12 @@ public class Assign4Driver
     	
     	
     }
-    
+	/******************************************************************************
+	* Method Name: parseInput						   			  *
+	* Purpose: This method parse input textfile					  *
+	* 													 		  *
+	* Returns: String[]: contain starts and end                   *
+	******************************************************************************/
     public static String[] parseInput(String s){
     	String[] result = s.split("\\s+");
     	return result;
