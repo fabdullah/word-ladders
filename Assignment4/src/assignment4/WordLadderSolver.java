@@ -25,25 +25,29 @@ public class WordLadderSolver implements Assignment4Interface
 			if (endWord.length() == 5 && checkWordInDictionary(endWord)) {
 				if (MakeLadder(startWord, endWord, -1)) {
 
-					//System.out.println(solution);
+					System.out.println("For the input words \"" + startWord + "\" and \"" + endWord + "\" the following word ladder was found");
 					for(int i=0; i<solution.size(); i++){
 						System.out.println(solution.get(i));
 					}
+					System.out.println("**********");
 					return solution;
 
 				}
 				else{
+					System.out.println("For the input words \"" + startWord + "\" and \"" + endWord + "\"");
 					System.out.println("There is no word ladder between " + startWord +" and " + endWord);
 				}
 
 			} 
 			else {
+				System.out.println("For the input words \"" + startWord + "\" and \"" + endWord + "\"");
 				System.out.println("At least one of the words " + startWord + " and " + endWord + " are not legitimate 5-letter words from the dictionary");// input exception: endWord is not valid (length is not 5 and word is not in dictionary)
 				System.out.println();
 			}
 
 		} 
 		else {
+			System.out.println("For the input words \"" + startWord + "\" and \"" + endWord + "\"");
 			System.out.println("At least one of the words " + startWord + " and " + endWord + " are not legitimate 5-letter words from the dictionary");// input exception: startWord is not valid (length is not 5 and word is not in dictionary)
 			System.out.println();
 		}
