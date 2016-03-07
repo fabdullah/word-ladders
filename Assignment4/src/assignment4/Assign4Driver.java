@@ -26,8 +26,8 @@ public class Assign4Driver
 
         try 
         {
-            List<String> result = wordLadderSolver.computeLadder("heads", "tails");
-            boolean correct = wordLadderSolver.validateResult("heads", "tails", result);
+            List<String> result = wordLadderSolver.computeLadder("ryan", "joe");
+            boolean correct = wordLadderSolver.validateResult("ryan", "joe", result);
             if(correct){
             	System.out.println("\nValidate Result: Valid!!");
             }

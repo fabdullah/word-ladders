@@ -18,7 +18,7 @@ public class WordLadderSolver implements Assignment4Interface
 	List<String> visited = new ArrayList<String>();
 
     @Override
-    public List<String> computeLadder(String startWord, String endWord) throws NoSuchLadderException 
+    public List<String> computeLadder(String startWord, String endWord) //throws NoSuchLadderException 
     {
         // implement this method
 		if (startWord.length() == 5 && checkWordInDictionary(startWord)) {
@@ -48,13 +48,16 @@ public class WordLadderSolver implements Assignment4Interface
 			System.out.println();
 		}
     	
-    	
-        throw new UnsupportedOperationException("Not implemented yet!");
+    	return null;
+        //throw new UnsupportedOperationException("Not implemented yet!");
     }
 
     @Override
     public boolean validateResult(String startWord, String endWord, List<String> wordLadder) 
     {
+    	if(wordLadder == null){
+    		return true;
+    	}
     	
     	//Checking if all the words in wordLadder is exist in the dictionary
     	for(int i=0; i<wordLadder.size(); i++){
